@@ -1,0 +1,288 @@
+* {
+	font-family: 'Roboto','Helvetica Neue',Helvetica,Arial,sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
+.col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,
+.col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md,
+.col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg,
+.col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,
+.col-xl-auto {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+@media (min-width: 200px) {
+	.aguila{
+		width: 60px;
+		margin: auto 5px;
+
+	}
+	.cabezaSCJN{
+		font-size: .8em;
+	}
+	.cabeza{
+		font-size: .5em;
+	}
+	.lineaTitulo{
+		font-size: .8em;
+	}
+	.carrusel{
+		padding: 5px 5%;
+		height: 100%;
+	}
+}
+@media (min-width: 576px) {
+	.aguila{
+		width: 70px;
+		margin: auto 5px;
+
+	}
+	.cabezaSCJN{
+		font-size: 1em;
+	}
+	.cabeza{
+		font-size: .75em;
+	}
+	.lineaTitulo{
+		font-size: 1em;
+	}
+	.carrusel{
+			padding: 5px 5%;
+			height: 100%;
+		}
+}
+
+@media (min-width: 768px) {
+	.aguila{
+		width: 80px;
+		margin: auto 15px;
+	}
+	.cabezaSCJN{
+		font-size: 1.2em;
+	}
+	.cabeza{
+		font-size: .9em;
+	}
+	.lineaTitulo{
+		font-size: .1.2em;
+	}
+}
+
+@media (min-width: 992px) {
+	.aguila{
+		width: 110px;
+		margin: auto 30px;
+	}
+	.cabezaSCJN{
+		font-size: 1.5em;
+	}
+	.cabeza{
+		font-size: 1.15em;
+	}
+	.lineaTitulo{
+		font-size: 1.5em;
+	}
+}
+
+@media (min-width: 1200px) {
+	.aguila{
+		width: 120px;
+		margin: auto 0px;
+	}
+	.cabezaSCJN{
+		font-size: 1.5em;
+	}
+	.cabeza{
+		font-size: 1.15em;
+	}
+	.lineaTitulo{
+		font-size: 1.5em;
+	}
+}
+
+
+.cabeza{
+	text-align: right;
+	color: rgba(255, 255, 255, 1);
+	margin-bottom: 0;
+	margin-right: 15px;
+}
+
+.cabezaSCJN{
+	text-align: right;
+	color: rgba(255, 255, 255, 1);
+	margin-bottom: 0;
+	margin-right: 15px;
+}
+
+.aguila{
+	max-width: 200px;
+	min-width: 50px;
+	height: 100%;
+	margin-left: 50px;
+	padding: 10px;
+}
+
+.renglon{
+	background-color: rgba(36,19,95, 1);
+}
+
+.lineaTitulo{
+	background: rgba(36,19,95, .8);
+}
+
+.lineaMenu{
+	background: rgba(36,19,95, .3);
+}
+
+.card {
+	background: rgba(36,19,95, .05);
+	padding: 30px;
+	margin: 0px;
+	width: 30%;
+}
+
+.piePagina{
+	background: rgba(62,62,62, 1);
+	color: rgb(255,255,255);
+}
+
+.card-img-top{
+	padding: 20px;
+	border-style: solid;
+	border-radius: 8px;
+	border-color: rgba(36,19,95, .3);
+}
+
+.btn-primary{
+	background-color: rgba(212,210,222, 1);
+	border: 0px solid transparent;
+	color: rgb(36,19,95);
+}
+
+
+.titulo{
+	color: rgb(255,255,255);
+	margin: 20px auto;
+	font-size: 1.5em;
+}
+
+.Pie{
+	background: rgb(0,0,0);
+	color: rgb(255,255,255);
+}
+
+.buscador{
+	margin: 10px 10px 5px 10px;
+}
+
+.dropdown-toggle{
+	margin: 12px 0px;
+}
+
+.PieCabeza{
+	font-size: 1.2em;
+	padding: 15px 10px;
+}
+
+
+.fondoAnimacion{
+      background: rgba(36,19,95, 1);
+      text-align: center;
+      z-index: 1;
+      height:180px;
+}
+
+#Aguila{
+}
+
+#Texto{
+      padding-top: 0px;
+      color: white;
+	  position: relative;
+	  text-align: center;
+}
+
+.popup {
+	background: rgba(231, 229, 237, .9);
+	position: fixed;
+	display: none;
+	z-index: 5000;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.popup .ficha{
+		max-width: 900px;
+		width: 70%;
+		position: fixed;
+		transform: translate(-50%, -50%);
+		left: 50%;
+		top: 50%;
+		background: rgba(182,176,202, 1);
+		padding: 30px;
+		z-index: 5001;
+		text-align: center;
+		border: 5px solid rgba(109,98,148, 1);
+		border-radius: 10px;
+		box-shadow: 0px 0px 15px 0px rgba(#000000, 1);
+}
+
+.card-img-top{
+	background: rgba(250,250,250, .3);
+	width: 100%;
+	max-width: 200px;
+	height: auto;
+	margin: auto;
+	border: 0px solid;
+	border-color: rgba(36,19,95, .5);
+}
+
+.card-text{
+	margin-bottom: 15px;
+}
+
+.btn:hover {
+	background: rgba(36,19,95, .3);
+	color: rgba(255,255,255, 1);
+}
+
+a.button {
+	background-color: rgb(36,19,95);
+	border-bottom: rgb(109,98,148);
+}
+
+.btn-cerrar{
+	margin: 10px 0px;
+}
+
+.Obra{
+	text-align: center;
+	font-weight: 500;
+	color: rgb(255,255,255);
+	padding: 10px 0px;
+}
+
+.Sinopsis{
+	text-align: justify;
+	color: rgb(0,0,0);
+	font-size: 80%;
+}
+
+.TxtNormal{
+	text-align: left;
+	color: rgb(0,0,0);
+	font-weight: bold;
+}
+
+.imgPopup{
+	margin-top: 30px;
+}

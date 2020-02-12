@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8"/>
+	<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+	<meta content="width=device-width, initial-scale=1" name="viewport"/ shrink-to-fit=no>
+	<title>
+		Catálogo de Publicaciones 2020
+	</title>
+	<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/custom.css"/>
+	<script src="js/jquery-3.4.1.min.js"/ type="text/javascript" ></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script>
+const elementos= 3;
+
+function paginacion(pActual,numPaginas){
+	for(i=1;i<=numPaginas;i++){
+		if(i!=pActual){
+			$("#card"+i).hide(500);
+		}else{
+			$("#card"+i).show(500);
+		}
+	}
+	ocultapaginas(pActual,numPaginas);
+}
+
+function ocultapaginas(pActual,numPaginas){
+
+	for(i=1;i<=numPaginas;i++){
+		if(i!=pActual && i!=(pActual-1) && i!=(pActual+1)  && i!=(pActual-2) && i!=(pActual+2)  ){
+			$("#bPag"+i).hide(500);
+		}else{
+			$("#bPag"+i).show(500);
+		}
+	}
+
+}
+
+
+
+		
+function abrirventana(ref){
+	window.open(ref);
+}
+
+function btn_click(selector) {
+    	cargarFicha(selector);
+    	popupOpenClose($(".popup"));
+		
+}
+
+
+function cargarFicha(Id){
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        	fichaXML(xhttp.responseXML,Id);
+            
+        }
+    };
+    xhttp.open("GET", "XML/base.xml", true);
+    xhttp.send(); 
+}
+
+
+function popupOpenClose(popup) {
+	
+	/* Add div inside popup for layout if one doesn't exist */
+	if ($(".wrapper").length == 0){
+		$(popup).wrapInner("<div class='wrapper'></div>");
+	}
+	
+	/* Open popup */
+	$(popup).show();
+
+	/* Close popup if user clicks on background */
+	$(popup).click(function(e) {
+		if ( e.target == this ) {
+			if ($(popup).is(':visible')) {
+				$(popup).hide();
+			}
+		}
+	});
+
+	/* Close popup and remove errors if user clicks on cancel or close buttons */
+	$(popup).find("button[name=close]").on("click", function() {
+		if ($(".formElementError").is(':visible')) {
+			$(".formElementError").remove();
+		}
+		$(popup).hide();
+	});
+}
+
+
+
+function fichaXML(xml,Id) {
+    var txt = "";
+    var Titulo="";
+    var Autor="";
+    var Año="";
+    var Pdf="";
+    var Imagen="";
+    var Coleccion="";
+
+
+
+    path = "/xml/DGCCST/Libro//Id[contains(text(), '"+Id+"')]";
+    if (xml.evaluate) {
+        var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+        var result = nodes.iterateNext();
+        var archPDF="";
+
+
+
+        while (result) {
+
+
+        	archPDF=result.parentNode.getElementsByTagName("ArchivoPDF")[0].childNodes[0].nodeValue;
+    		document.getElementById("tituloFicha").innerHTML = result.parentNode.getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
+            document.getElementById("autorFicha").innerHTML = result.parentNode.getElementsByTagName("Autor")[0].childNodes[0].nodeValue;
+            document.getElementById("añoFicha").innerHTML = result.parentNode.getElementsByTagName("Año")[0].childNodes[0].nodeValue;
+			document.getElementById("coleccionFicha").innerHTML = result.parentNode.getElementsByTagName("Colección")[0].childNodes[0].nodeValue;
+			document.getElementById("sinopsisFicha").innerHTML = result.parentNode.getElementsByTagName("Sinopsis")[0].childNodes[0].nodeValue;
+            if(archPDF=='NA'){
+				$("#pdfFicha").hide();
+            }else{
+				$("#pdfFicha").show();
+            	$("#pdfFicha").attr('href',"pdf/" + archPDF); 
+            }
+
+            document.getElementById("ebookFicha").href = "ebook/" + result.parentNode.getElementsByTagName("ArchivoPub")[0].childNodes[0].nodeValue;
+			$("#imgFicha").attr('src','img/'+result.parentNode.getElementsByTagName("Imagen")[0].childNodes[0].nodeValue);
+
+           result = nodes.iterateNext();
+
+
+
+        }
+    }  
+}
+
+
+$(document).ready(function(){
+
+$.get('XML/base.xml', function(d){
+        
+
+        var html ='';
+        var contador=1;
+        var pagina=1;
+        var contadorUltimo=1;
+        var htmlFinal='';
+        //alert( $(d).find('Libro').length );
+        var numElementos = $(d).find('Libro').length;
+
+	    $(d).find('Libro').each(function(){
+
+            var $book = $(this); 
+            var titulo = $book.find('Titulo').text();
+            var autor = $book.find('Autor').text();
+            var coleccion = $book.find('Colección').text();
+            var imagen=$book.find('Imagen').text();
+            var pdf=$book.find('ArchivoPDF').text();
+            var Id=$book.find('Id').text();
+
+
+
+
+            if(contadorUltimo== numElementos ){
+
+	            if(contador == 1){
+	            htmlFinal+="<div class='row' id='card"+ pagina+ "' >";
+	            }
+				htmlFinal += '<div id="tarjeta" class="card col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"><button type="button" class="btn btn-primary btn" data-js="open" onclick="btn_click(\'' + Id + '\')" data-selector="' + Id + '" ><img src="img/' + imagen + '" class="card-img-top"></button><div class="card-body"><h5 class="card-title">' + titulo + '</h5><p class="card-text">' + autor + '</p><p class="card-text" style="display: none;">' + coleccion + '</p></div></div>';
+				
+		            htmlFinal+="</div>";
+            }
+            contadorUltimo +=1;
+
+            
+            if(contador == 1){
+            html+="<div class='row' id='card"+ pagina+ "' >";
+            }
+			html += '<div id="tarjeta" class="card col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"><button type="button" class="btn btn-primary btn" data-js="open" onclick="btn_click(\'' + Id + '\')" data-selector="' + Id + '" ><img src="img/' + imagen + '" class="card-img-top"></button><div class="card-body"><h5 class="card-title">' + titulo + '</h5><p class="card-text">' + autor + '</p><p class="card-text" style="display: none;">' + coleccion + '</p></div></div>';
+			
+			if(contador>=elementos){
+	            html+="</div>";
+	            contador=1;
+	            pagina+=1;
+            }else{
+            	contador+=1;
+            }
+            
+
+        });
+
+
+
+
+
+        if(contador!=1){
+			html+="</div>";
+        }
+		
+
+
+
+
+        $('#contenedor').append($(html));
+        $('#demo').append($(htmlFinal));
+
+
+
+        //CREA LOS BOTONES PARA LA PÁGINA
+		html="";
+	    for( i=1;i<= pagina;i++){
+	    	if(i>1){
+	    		$("#card"+i).hide();
+	    	}
+	    html +='<button type="button" class="btn btn-primary btn-sm" id="bPag'+i+'" onclick="paginacion('+ i+ ','+ pagina+')" >'+ i+ '</button>';
+	    }
+
+        $('#btnPagina').append($(html));
+
+
+
+		$("#Buscar").on("keyup", function(event) {
+
+		var value = $(this).val().toLowerCase();
+        var arreglo=[];
+        i=0;
+        if(event.which==13){
+
+
+  			  	$("#contenedor #tarjeta").filter(function() {
+				$(this).show();
+
+				if(value==""){
+					arreglo[i]=$(this);
+		            i +=1;
+				}else{
+	  			    if($(this).text().toLowerCase().indexOf(value) > -1){
+		              arreglo[i]=$(this);
+		              i +=1;
+	            	}
+
+				}
+           });
+
+              $("#contenedor #tarjeta").each(
+                  function(){
+                    $(this).hide();
+                  }
+                )
+              /*alert(arreglo.length);
+              if(arreglo.length>6 ){
+                  for(j=6;j>0;j--){
+                    arreglo[j].show();                  }
+              }else{*/
+              	var tarjeta =1;
+              		resultados=0;
+                  for(j=0;j<arreglo.length;j++){
+                  	
+                    arreglo[j].appendTo("#card"+tarjeta);
+                    arreglo[j].show();
+                    if(resultados!=(elementos-1) || (j+1)==arreglo.length){
+                  		resultados+=1;
+                  	}else{
+                  		tarjeta+=1
+                  		resultados=0;
+                  	}
+                  }
+
+              //}
+              	html="";
+			    for( i=1;i<= tarjeta;i++){
+			    	if(i>1){
+			    		$("#card"+i).hide();
+			    	}
+			    html +='<button type="button" class="btn btn-primary btn-sm" id="bPag'+i+'" onclick="paginacion('+ i+ ','+ tarjeta+')" >'+ i+ '</button>';
+			    }
+			    //alert();
+		        $('#btnPagina').html("<p>Se encontraron " + j + " Resultados </p> <br>" + html);
+		        paginacion(1,tarjeta)
+
+          }
+		})
+            
+});
+
+
+
+/*FUNCIONES DE LA ANIMACIÓN DE INTRODUCCIÓN
+    
+		  $(".animText").hide(0);
+		  //$(".contenedorprincipal").hide(0);
+
+          $(".aguila").fadeOut();
+          $(".aguila").fadeIn();
+          $('#Texto').removeClass();       
+          $('.lineaTitulo').addClass("slideDown");
+      
+          $(".aguila").animate({
+            marginLeft: '30px'
+          },1000,
+          function(){
+          /*$(".fondoAnimacion").hide(0);
+
+		  $(".animText").show(1000);
+
+      		}
+
+          );
+
+    $(".contenedor div").each(function(e) {
+        if (e != 0)
+            $(this).hide();
+    });
+ 
+TERMINAN LAS FUNCIONES DE LA ANIMACIÓN*/
+
+
+
+/* BUSCADOR 2*/
+
+
+/* TERMINA BUSCADOR 2 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $("#siguiente").click(function(){
+        if ($(".contenedor div:visible").next().length != 0)
+            $(".contenedor div:visible").next().show().prev().hide();
+        else {
+            $(".contenedor div:visible").hide();
+            $(".contenedor div:first").show();
+        }
+        return false;
+    });
+ 
+    $("#previo").click(function(){
+        if ($(".contenedor div:visible").prev().length != 0)
+            $(".contenedor div:visible").prev().show().next().hide();
+        else {
+            $(".contenedor div:visible").hide();
+            $(".contenedor div:last").show();
+        }
+        return false;
+    });
+
+
+
+
+
+function quitarIntro(){
+	$('#miAnimacion').slideUp();
+}
+
+
+
+/*buscador v1*/
+
+
+});
+
+
+
+
+
+
+/* */
+
+
+
+
+/* TERMINA EL BUSCADOR V1*/
+	</script>
+</head>
+
+
+<body> 
+
+													<!-- CABEZA DE LA PÁGINA -->
+
+	<div class="container">
+		<div class="row renglon contenedorprincipal">
+			<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-2">
+				<img class="aguila" src="img/Logo SCJN 2019 Pantone.svg" alt="">
+			</div>
+			<div class="col-9 col-sm-9 col-md-10 col-lg-10 col-xl-10 animText">
+				<br>
+				<p class="cabeza">Dirección General de la Coordinación de<br>Compilación y Sistematización de Tesis</p>
+			<br>
+			</div>
+		</div>
+	</div>
+
+
+																<!-- TITULO BIBLIOTECA VIRTUAL	 -->
+
+	<div class="container">
+		<div class="row lineaTitulo">
+			<h2 class="titulo">CATÁLOGO DE PUBLICACIONES</h2>
+		</div>
+	</div>
+
+
+																<!-- LÍNEA DE MENU Y BUSQUEDA -->
+
+	<div class="container">
+		<div class="row lineaMenu" >
+			<div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-1"></div>
+			<div class="col-4 col-sm-4 col-md-3 col-lg-3 col-xl-3">
+			</div>
+			
+																<!-- Buscador -->
+
+			<div class="col-8 col-sm-8 col-md-7 col-lg-7 col-xl-7">
+				<div class="buscador input-group mb-3">
+					<input type="search" name="Buscar" id="Buscar" placeholder="Buscar..." class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+			</div>
+
+			<div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-1"></div>
+		</div>
+	</div>
+
+
+															<!-- CARRUSEL	 -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12 carrusel">
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="img/PrimerSlide.jpg" class="d-block w-100">
+					</div>
+					<div class="carousel-item">
+						<img src="img/SegundoSlide.jpg" class="d-block w-100">
+					</div>
+					<div class="carousel-item">
+						<img src="img/TercerSlide.jpg" class="d-block w-100">
+					</div>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Anterior</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Siguiente</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+                                                                <!--BOTONES GACETA Y JURISLEX-->
+
+	    <div class="container">
+			<div class="row">
+				<div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3"></div>
+				<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-2">
+	            	<a href="https://sjf.scjn.gob.mx/SJFHome/Index.html"><img src="img/botonSCJN1.svg" alt="Conferencias-Cossi-o-Di-az-2015-img" border="0"></a>
+				</div>
+				<div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+				<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-2">
+					<a href="https://jurislex.scjn.gob.mx/#/"><img src="img/botonJURISLEX1.svg" alt="Conferencias-Cossi-o-Di-az-2015-img" border="0"></a>
+				</div>
+				<div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3"></div>
+	    	</div>
+	    </div>
+
+															<!--RESULTADOS DE LA BÚSQUEDA-->
+
+	<div class="container">
+		<div class="row" id="btnPagina"></div>
+	</div>		
+	<div class="container" id="contenedor">
+		<div class="row" id="card" >
+		</div>
+	</div>												<!--TERMINA RESULTADOS DE LA BÚSQUEDA-->
+
+
+																<!-- POPUP FICHA DE RESULTADO -->
+	<div class="popup">
+		<div class="ficha">
+			<button class="btn btn-primary btn-sm btn-cerrar" name="close">Cerrar</button>
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<a href="https://flippingbook.cld.bz/coven-magazine" class="fbc-embed"  data-fbc-lightbox="yes" data-fbc-width="640px" data-fbc-height="480px"  data-fbc-method="site"   data-fbc-version="2019.4.0"   style="max-width: 100%">Coven</a><script async defer src="https://cld.bz/e/dTT5eut/embed.js?mode=redir"></script>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<h3 class="Obra" id="tituloFicha">Título</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+					<p class="Sinopsis" id="sinopsisFicha">Sinopsis.</p>
+					<p class="TxtNormal" id="autorFicha">Autor.</p>
+					<p class="TxtNormal" id="añoFicha">Año.</p>
+					<p class="TxtNormal" id="coleccionFicha">Colección.</p>
+					<a class="button" href="#" id="pdfFicha">pdf</a>
+					<a class="button" href="#" id="ebookFicha">ebook</a>
+				</div>
+				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+					<img src="" id="imgFicha" class="card-img-top imgPopup" >
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+																<!-- MUESTRA DE GACETAS O RESULTADOS DE BUSQUEDA	 
+
+
+		
+		
+
+	<div class="container">
+		<div class="row" id="demo">
+			
+			<div class="card col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+				<img src="img/Gaceta Mayo.jpg" class="card-img-top" alt="Gaceta">
+				<div class="card-body">
+					<h5 class="card-title">Gaceta</h5>
+					<p class="card-text">Gaceta del SJF Libro 66 Mayo 2019</p>
+					<a href="https://www.scjn.gob.mx/sites/default/files/gaceta/documentos/2019-06/libro66.pdf" class="btn btn-primary">Descargar</a>
+					<a href="#" data-js="open" onclick="btn_click('11003488')" data-selector="11003488"  class="btn btn-primary">Abrir Ficha</a>
+				</div>
+			</div>
+			<div class="card col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+				<img src="img/Gaceta Mayo.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Gaceta</h5>
+					<p class="card-text">Gaceta del SJF Libro 65 Abril 2019</p>
+					<a href="https://www.scjn.gob.mx/sites/default/files/gaceta/documentos/2019-05/libro65.pdf" class="btn btn-primary">Descargar</a>
+					<a href="#" data-js="open" onclick="btn_click('11003488')" data-selector="11003488"  class="btn btn-primary">Abrir Ficha</a>
+				</div>
+			</div>
+			<div class="card col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+				<img src="img/Gaceta Mayo.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Gaceta</h5>
+					<p class="card-text">Gaceta del SJF Libro 63 Marzo 2019</p>
+					<a href="https://www.scjn.gob.mx/sites/default/files/gaceta/documentos/2019-04/Libro64.pdf" class="btn btn-primary">Descargar</a>
+					<a href="#" data-js="open" onclick="btn_click('11003488')" data-selector="11003488"  class="btn btn-primary">Abrir Ficha</a>
+				</div>
+			</div>
+			<div class="card col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+				<img src="img/Gaceta Mayo.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Gaceta</h5>
+					<p class="card-text">Gaceta del SJF Libro 62 Febrero 2019</p>
+					<a href="https://www.scjn.gob.mx/sites/default/files/gaceta/documentos/tomos/2019-04/1_63_FEB.pdf" class="btn btn-primary">Descargar</a>
+					<a href="#" data-js="open" onclick="btn_click('11003488')" data-selector="11003488"  class="btn btn-primary">Abrir Ficha</a>
+				</div>
+			</div>
+
+
+		</div>
+	</div> -->
+
+																<!-- PIE DE PAGINA	 -->
+
+
+	<footer>
+		<div class="container Pie">
+			<div class="row">
+				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+					<h4 class="PieCabeza">Ubicación</h4>
+					<p>Suprema Corte de Justicia de la Nación: Pino Suárez no. 2, Colonia Centro. Cuauhtémoc, C.P. 06065, México, Ciudad de México</p>
+				</div>
+				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+					<h4 class="PieCabeza">Redes Sociales</h4>
+					<p>Facebook<br>
+					Twitter<br>
+					Teléfono<br>
+					Plataforma de Transparencia<br>
+					Sistema de Solicitudes de Acceso a la Información de la Suprema Corte de Justicia de la Nación<br>
+					Correo electrónico</p>
+				</div>
+				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+					<h4 class="PieCabeza">DENUNCIAS DE RESPONSABILIDADES ADMINISTRATIVAS</h4>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+</body>
+</html>

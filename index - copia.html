@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8"/>
+	<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+	<meta content="width=device-width, initial-scale=1" name="viewport"/ shrink-to-fit=no>
+	<title>
+		Biblioteca Virtual 2019
+	</title>
+	<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/custom.css"/>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/style.css">
+	<script src="js/jquery-3.4.1.min.js"/ type="text/javascript" ></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script>
+		
+function btn_click(selector) {
+    	cargarFicha(selector);
+    	popupOpenClose($(".popup"));
+		
+}
+
+function cargarFicha(Id){
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        	fichaXML(xhttp.responseXML,Id);
+            
+        }
+    };
+    xhttp.open("GET", "XML/base.xml", true);
+    xhttp.send(); 
+}
+
+
+function popupOpenClose(popup) {
+	
+	/* Add div inside popup for layout if one doesn't exist */
+	if ($(".wrapper").length == 0){
+		$(popup).wrapInner("<div class='wrapper'></div>");
+	}
+	
+	/* Open popup */
+	$(popup).show();
+
+	/* Close popup if user clicks on background */
+	$(popup).click(function(e) {
+		if ( e.target == this ) {
+			if ($(popup).is(':visible')) {
+				$(popup).hide();
+			}
+		}
+	});
+
+	/* Close popup and remove errors if user clicks on cancel or close buttons */
+	$(popup).find("button[name=close]").on("click", function() {
+		if ($(".formElementError").is(':visible')) {
+			$(".formElementError").remove();
+		}
+		$(popup).hide();
+	});
+}
+
+
+
+function fichaXML(xml,Id) {
+    var txt = "";
+    var Titulo="";
+    var Autor="";
+    var Año="";
+    var Pdf="";
+    var Imagen="";
+    var Coleccion="";
+
+
+
+    path = "/xml/DGCCST/Libro//Id[contains(text(), '"+Id+"')]";
+    if (xml.evaluate) {
+        var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+        var result = nodes.iterateNext();
+        
+        while (result) {
+    		document.getElementById("tituloFicha").innerHTML = result.parentNode.getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
+            document.getElementById("autorFicha").innerHTML = result.parentNode.getElementsByTagName("Autor")[0].childNodes[0].nodeValue;
+            document.getElementById("añoFicha").innerHTML = result.parentNode.getElementsByTagName("Año")[0].childNodes[0].nodeValue;
+			document.getElementById("coleccionFicha").innerHTML = result.parentNode.getElementsByTagName("Colección")[0].childNodes[0].nodeValue;
+            document.getElementById("pdfFicha").href = "pdf/" + result.parentNode.getElementsByTagName("ArchivoPDF")[0].childNodes[0].nodeValue;
+            document.getElementById("imgFicha").src ="img/" + result.parentNode.getElementsByTagName("Imagen")[0].childNodes[0].nodeValue;
+
+           result = nodes.iterateNext();
+
+        }
+    }  
+}
+
+
+
+
+
+		$(document).ready(function(){
+    
+		  $(".animText").hide(0);
+		  //$(".contenedorprincipal").hide(0);
+
+          $(".aguila").fadeOut();
+          $(".aguila").fadeIn();
+          $('#Texto').removeClass();       
+          $('.lineaTitulo').addClass("slideDown");
+      
+          $(".aguila").animate({
+            marginLeft: '0px'
+          },1000,
+          function(){
+          /*$(".fondoAnimacion").hide(0);
+*/
+		  $(".animText").show(1000);
+
+      		}
+
+          );
+
+    $(".contenedor div").each(function(e) {
+        if (e != 0)
+            $(this).hide();
+    });
+ 
+    $("#siguiente").click(function(){
+        if ($(".contenedor div:visible").next().length != 0)
+            $(".contenedor div:visible").next().show().prev().hide();
+        else {
+            $(".contenedor div:visible").hide();
+            $(".contenedor div:first").show();
+        }
+        return false;
+    });
+ 
+    $("#previo").click(function(){
+        if ($(".contenedor div:visible").prev().length != 0)
+            $(".contenedor div:visible").prev().show().next().hide();
+        else {
+            $(".contenedor div:visible").hide();
+            $(".contenedor div:last").show();
+        }
+        return false;
+    });
+
+
+
+
+
+
+		$("#Buscar").keypress(function(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if(code==13){
+            cargar();
+        }
+    });
+
+});
+
+
+function quitarIntro(){
+	$('#miAnimacion').slideUp();
+}
+
+function cargar(){
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        	showResult(xhttp.responseXML);
+            
+        }
+    };
+    xhttp.open("GET", "XML/base.xml", true);
+    xhttp.send(); 
+}
+
+
+
+
+
+
+
+
+
+
+
+function showResult(xml) {
+    var txt = "";
+    var palabraBusqueda = document.getElementById("Buscar").value;
+    var etiqueta=document.getElementById("catBusqueda").value;
+    var Id="";
+    var Titulo="";
+    var Autor="";
+    var Año="";
+    var Pdf="";
+    var Imagen="";
+    var Coleccion="";
+    var Id="";
+
+
+
+    path = "/xml/DGCCST/Libro//"+etiqueta+"[contains(text(), '"+palabraBusqueda+"')]";
+    
+    alert(path);
+    if (xml.evaluate) {
+        var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+        var result = nodes.iterateNext();
+        
+        while (result) {
+
+            Id= result.parentNode.getElementsByTagName("Id")[0].childNodes[0].nodeValue;
+            Titulo= result.parentNode.getElementsByTagName("Titulo")[0].childNodes[0].nodeValue;
+            Autor= result.parentNode.getElementsByTagName("Autor")[0].childNodes[0].nodeValue;
+            Año= result.parentNode.getElementsByTagName("Año")[0].childNodes[0].nodeValue;
+			Coleccion= result.parentNode.getElementsByTagName("Colección")[0].childNodes[0].nodeValue;
+
+            Pdf= "pdf/" + result.parentNode.getElementsByTagName("ArchivoPDF")[0].childNodes[0].nodeValue;
+            Imagen="img/" + result.parentNode.getElementsByTagName("Imagen")[0].childNodes[0].nodeValue;
+            Id= result.parentNode.getElementsByTagName("Id")[0].childNodes[0].nodeValue;
+			
+            txt +='<div class="card col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3"><img src="'+Imagen +'" class="card-img-top" alt="Gaceta"><div class="card-body"><h5 class="card-title"> ' + Titulo + ' </h5><p class="card-text">' + Autor+' ' + Año +'</p><a href="' + Pdf+'" class="btn btn-primary">Descargar</a> <button data-js="open" onclick="btn_click(\'' + Id + '\')"  data-selector="' + Id + '" >Abrir Ficha</button> </div></div>'
+
+           result = nodes.iterateNext();
+
+        }
+        if(txt ==""){
+
+        alert("No hay resultados para la búsqueda");
+
+    document.getElementById("demo").innerHTML = "Sin resultados";
+    $('#Banner').slideUp();
+        }else{
+    document.getElementById("demo").innerHTML = txt;
+    $('#Banner').slideUp();
+
+        }
+    }  
+}
+
+
+	</script>
+</head>
+
+
+<body> 
+
+													<!-- CABEZA DE LA PÁGINA -->
+
+	<div class="container">
+		<div class="row renglon contenedorprincipal">
+			<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-2">
+				<img class="aguila" src="img/Logo SCJN 2019 Pantone.svg" alt=""/>
+			</div>
+			<div class="col-9 col-sm-9 col-md-10 col-lg-10 col-xl-10 animText">
+				<br>
+				<p class="cabezaSCJN">Suprema Corte de Justicia de la Nación</p>
+				<p class="cabeza"> </p>
+				<p class="cabeza">Dirección General de la Coordinación <br>de Compilación y Sistematización de Tesis</p>
+				<br>
+			</div>
+		</div>
+	</div>
+
+
+																<!-- TITULO BIBLIOTECA VIRTUAL	 -->
+
+	<div class="container">
+		<div class="row lineaTitulo">
+			<h2 class="titulo">Biblioteca Virtual</h2>
+		</div>
+	</div>
+
+
+																<!-- LÍNEA DE MENU Y BUSQUEDA -->
+
+	<div class="container">
+		<div class="row lineaMenu" >
+			<div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-1"></div>
+			<div class="col-4 col-sm-4 col-md-3 col-lg-3 col-xl-3">
+
+
+																<!-- Ejemplo de Boton desplegable de Menu -->
+
+				<div class="btn-group">
+					<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Menú
+				  	</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">Inicio</a>
+						<a class="dropdown-item" href="#">Biblioteca por Título</a>
+						<a class="dropdown-item" href="#">Biblioteca por Año</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Gaceta del SJF</a>
+					</div>
+				</div>
+			</div>
+			
+																<!-- Buscador -->
+			<div class="col-8 col-sm-8 col-md-7 col-lg-7 col-xl-7">
+				<div class="buscador input-group mb-3">
+					<!-- <input type="search" name="Buscar" id="Buscar" placeholder="Buscar en el sitio..."> --><select id="catBusqueda">
+						<option value="Autor">Autor</option>
+						<option value="Titulo">Titulo</option>
+						<option value="Colección">Colección</option>
+					</select>
+
+					<input type="search" name="Buscar" id="Buscar" placeholder="Buscar en el sitio..." class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+			</div>
+
+			<div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-1"></div>
+		</div>
+	</div>
+			
+
+																<!-- CARRUSEL	 -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12 carrusel">
+
+
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="img/PrimerSlide.jpg" class="d-block w-100">
+					</div>
+					<div class="carousel-item">
+						<img src="img/SegundoSlide.jpg" class="d-block w-100">
+					</div>
+					<div class="carousel-item">
+						<img src="img/TercerSlide.jpg" class="d-block w-100">
+					</div>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Anterior</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Siguiente</span>
+					</a>
+				</div>
+
+			
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="popup">
+		<div class="ficha">
+		<button name="close">Cerrar</button>
+
+
+		<div class="row">
+			<div class="col-7 col-sm-7 col-md-6 col-lg-6 col-xl-6">
+				<p id="tituloFicha">Título</p>
+				<p id="sinopsisFicha">Sinopsis.</p>
+				<button class="button" href="#" id="pdfFicha">pdf</button>
+				<button class="button" href="#" id="ebookFicha">ebook</button>
+			</div>
+			<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-2">
+				<img src="img/Gaceta Mayo.jpg" id="imgFicha" alt="picture of space">
+			</div>
+		</div>
+
+
+
+		</div>
+	</div>
+
+
+																<!-- MUESTRA DE GACETAS O RESULTADOS DE BUSQUEDA	 -->
+
+
+	<div class="container">
+		<div class="row" id="demo">
+			
+			<div class="card col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+				<img src="img/Gaceta Mayo.jpg" class="card-img-top" alt="Gaceta">
+				<div class="card-body">
+					<h5 class="card-title">Gaceta</h5>
+					<p class="card-text">Gaceta del SJF Libro 66 Mayo 2019</p>
+					<a href="https://www.scjn.gob.mx/sites/default/files/gaceta/documentos/2019-06/libro66.pdf" class="btn btn-primary">Descargar</a>
+				<button data-js="open" onclick="btn_click('11003488')" data-selector="11003488" >Abrir Ficha</button>
+				</div>
+			</div>
+			<div class="card col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+				<img src="img/Gaceta Mayo.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Gaceta</h5>
+					<p class="card-text">Gaceta del SJF Libro 65 Abril 2019</p>
+					<a href="https://www.scjn.gob.mx/sites/default/files/gaceta/documentos/2019-05/libro65.pdf" class="btn btn-primary">Descargar</a>
+				</div>
+			</div>
+			<div class="card col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+				<img src="img/Gaceta Mayo.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Gaceta</h5>
+					<p class="card-text">Gaceta del SJF Libro 63 Marzo 2019</p>
+					<a href="https://www.scjn.gob.mx/sites/default/files/gaceta/documentos/2019-04/Libro64.pdf" class="btn btn-primary">Descargar</a>
+				</div>
+			</div>
+			<div class="card col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+				<img src="img/Gaceta Mayo.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Gaceta</h5>
+					<p class="card-text">Gaceta del SJF Libro 62 Febrero 2019</p>
+					<a href="https://www.scjn.gob.mx/sites/default/files/gaceta/documentos/tomos/2019-04/1_63_FEB.pdf" class="btn btn-primary">Descargar</a>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+																<!-- PIE DE PAGINA	 -->
+
+
+	<footer>
+		<div class="container Pie">
+			<div class="row">
+				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+					<h4 class="PieCabeza">Ubicación</h4>
+					<p>Suprema Corte de Justicia de la Nación: Pino Suárez no. 2, Colonia Centro. Cuauhtémoc, C.P. 06065, México, Ciudad de México</p>
+				</div>
+				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+					<h4 class="PieCabeza">Redes Sociales</h4>
+					<p>Facebook<br>
+					Twitter<br>
+					Teléfono<br>
+					Plataforma de Transparencia<br>
+					Sistema de Solicitudes de Acceso a la Información de la Suprema Corte de Justicia de la Nación<br>
+					Correo electrónico</p>
+				</div>
+				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+					<h4 class="PieCabeza">DENUNCIAS DE RESPONSABILIDADES ADMINISTRATIVAS</h4>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<xml>
+	<DGCCST>
+
+		<Libro>
+			<Id>11003466</Id>
+			<Titulo>Suplencia de la deficiencia de la queja con base en el interes superior del menor</Titulo>
+			<Año>2018</Año>
+			<Palabra>Decisiones</Palabra>
+			<Autor>PJF SCJN IIJUNAM</Autor>
+			<Imagen>11003466_img.jpg</Imagen>
+			<ArchivoPDF>NA</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Primera</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>102</Tomo>
+			<Colección>Decisiones Relevantes</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003482</Id>
+			<Titulo>Antecedentes penales e individualizacion de la pena</Titulo>
+			<Año>2018</Año>
+			<Palabra>Decisiones</Palabra>
+			<Autor>PJF SCJN IIJUNAM</Autor>
+			<Imagen>11003482_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Primera</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>103</Tomo>
+			<Colección>Decisiones Relevantes</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003488</Id>
+			<Titulo>Invalidez de las disposiciones locales reguladas por el codigo nacional de procedimientos penales</Titulo>
+			<Año>2018</Año>
+			<Palabra>Decisiones</Palabra>
+			<Autor>PJF SCJN IIJUNAM</Autor>
+			<Imagen>11003488_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Primera</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>104</Tomo>
+			<Colección>Decisiones Relevantes</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003357</Id>
+			<Titulo>Derecho del trabajo</Titulo>
+			<Año>2017</Año>
+			<Palabra>Laboral</Palabra>
+			<Autor>SCJN</Autor>
+			<Imagen>11003357_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Primera</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>1</Tomo>
+			<Colección>Temas selectos</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003440</Id>
+			<Titulo>La relacion y el contrato de trabajo</Titulo>
+			<Año>2018</Año>
+			<Palabra>Laboral</Palabra>
+			<Autor>SCJN</Autor>
+			<Imagen>11003440_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Primera</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>2</Tomo>
+			<Colección>Temas selectos</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003454</Id>
+			<Titulo>Conflictos y procesos laborales</Titulo>
+			<Año>2018</Año>
+			<Palabra>Laboral</Palabra>
+			<Autor>SCJN</Autor>
+			<Imagen>11003454_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Primera</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>3</Tomo>
+			<Colección>Temas selectos</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003415</Id>
+			<Titulo>Ley de Amparo</Titulo>
+			<Año>2018</Año>
+			<Palabra>Amparo</Palabra>
+			<Autor>SCJN</Autor>
+			<Imagen>11003415_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Segunda</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>1</Tomo>
+			<Colección>Ley de Amparo</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003445</Id>
+			<Titulo>La Jurispudencia</Titulo>
+			<Año>2018</Año>
+			<Palabra>Jurisprudencia</Palabra>
+			<Autor>Dr Manuel Gonzalez Oropeza</Autor>
+			<Imagen>11003445_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Cuarta</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>1</Tomo>
+			<Colección>La Jurisprudencia</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003374</Id>
+			<Titulo>El sobreseimiento en el juicio de amparo</Titulo>
+			<Año>2017</Año>
+			<Palabra>Juicio</Palabra>
+			<Autor>SCJN</Autor>
+			<Imagen>11003374_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Primera</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>3</Tomo>
+			<Colección>Estudios introductorios sobre el juicio de amparo</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003438</Id>
+			<Titulo>Abandono del centro historico de veracruz</Titulo>
+			<Año>2018</Año>
+			<Palabra>Ensayos</Palabra>
+			<Autor>Ministro Carlos Sempe Minvielle</Autor>
+			<Imagen>11003438_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Primera</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>16</Tomo>
+			<Colección>Ensayos y Conferencias</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003463</Id>
+			<Titulo>Elementos Indispensables de retorica para jueces litigantes y publico general</Titulo>
+			<Año>2018</Año>
+			<Palabra>Retorica</Palabra>
+			<Autor>SCJN</Autor>
+			<Imagen>11003463_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Cuarta</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>1</Tomo>
+			<Colección>Elementos indispensables de retorica</Colección>
+		</Libro>
+
+		<Libro>
+			<Id>11003432</Id>
+			<Titulo>Elementos de derecho procesal constitucional</Titulo>
+			<Año>2018</Año>
+			<Palabra>Elementos</Palabra>
+			<Autor>SCJN</Autor>
+			<Imagen>11003432_img.jpg</Imagen>
+			<ArchivoPDF>pdf</ArchivoPDF>
+			<ArchivoPub>ePub</ArchivoPub>
+			<Edicion>Tercera</Edicion>
+			<Sinopsis>texto</Sinopsis>
+			<Tomo>1</Tomo>
+			<Colección>Elementos de derecho</Colección>
+		</Libro>
+
+	</DGCCST>
+</xml>
